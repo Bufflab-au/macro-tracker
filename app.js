@@ -148,7 +148,8 @@ function App() {
       });
       const json = await res.json();
       const text = json.content?.[0]?.text || "";
-      const parsed = JSON.parse(text.replace(/```json|```/g, "").trim());
+      const clean = text.replace(/```json\n?|```\n?/g, "").trim();
+      const parsed = JSON.parse(clean);
       setData(prev => {
         const day = prev.history[today] || [];
         return { ...prev, history: { ...prev.history, [today]: [...day, parsed] } };
