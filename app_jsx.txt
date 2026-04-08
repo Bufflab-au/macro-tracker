@@ -1,6 +1,6 @@
 const { useState, useEffect } = React;
 
-const WORKER_URL = 'https://patient-morning-b6bc.jasontclow.workers.dev';
+const WORKER_URL = 'https://macro-tracker-proxy.jasontclow.workers.dev';
 
 const GOALS = { calories: 1800, protein: 70, carbs: 240, fat: 60 };
 
