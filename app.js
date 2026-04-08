@@ -1,6 +1,6 @@
 const { useState, useEffect } = React;
 
-const WORKER_URL = 'https://patient-morning-b6bc.jasontclow.workers.dev';
+const WORKER_URL = 'https://macro-tracker-proxy.jasontclow.workers.dev';
 
 const GOALS = { calories: 1800, protein: 70, carbs: 240, fat: 60 };
 
@@ -144,12 +144,7 @@ function App() {
       const res = await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-haiku-4-5-20251001",
-          max_tokens: 300,
-          system: `You are a macro nutrition assistant. When given a food description, respond ONLY with a JSON object (no markdown, no extra text) with these fields: name (string, cleaned-up food name max 40 chars), calories (number), protein (number in grams, 1 decimal), carbs (number in grams, 1 decimal), fat (number in grams, 1 decimal). Base estimates on typical serving sizes if not specified. Example: {"name":"2 scrambled eggs","calories":182,"protein":12.0,"carbs":2.0,"fat":14.0}`,
-          messages: [{ role: "user", content: input.trim() }]
-        })
+        body: JSON.stringify({ food: input.trim() })
       });
       const json = await res.json();
       const text = json.content?.[0]?.text || "";
